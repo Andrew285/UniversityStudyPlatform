@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace UniversityStudyPlatform.Models
 {
-    public class Student
+    public class Subject
     {
-        public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Surname { get; set; }
+        public int SubjectId { get; set; }
 
-        public AccountBook AccountBook { get; set; }
+        [Required]
+        public string SubjectName { get; set; }
+
+        public ICollection<StudentPerfomance> StudentPerfomances { get; set;}
     }
 }
