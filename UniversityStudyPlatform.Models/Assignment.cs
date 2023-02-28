@@ -15,5 +15,7 @@ namespace UniversityStudyPlatform.Models
 
         public int CourseId { get; set; }
         public Course Course { get; set;}
+
+        ICollection<StudentIndividualTask> StudentIndividualTask { get; set; }
     }
 }

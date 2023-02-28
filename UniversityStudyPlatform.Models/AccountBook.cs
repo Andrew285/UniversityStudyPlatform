@@ -18,5 +18,6 @@ namespace UniversityStudyPlatform.Models
         public Group Group { get; set; }
 
         public ICollection<StudentPerfomance> StudentPerfomances { get; set; }
+        ICollection<StudentIndividualTask> StudentIndividualTask { get; set; }
     }
 }

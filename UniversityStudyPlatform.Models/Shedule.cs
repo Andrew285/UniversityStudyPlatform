@@ -7,21 +7,19 @@ using System.Threading.Tasks;
 
 namespace UniversityStudyPlatform.Models
 {
-    public class Course
+    public class Shedule
     {
         public int Id { get; set; }
-
         [Required]
-        public string Name { get; set; }
-
-        public int SubjectId { get; set; }
-        public Subject Subject { get; set; }
+        public string Faculty { get; set; }
 
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
 
-        ICollection<CourseGroup> CourseGroups { get; set; }
-        ICollection<Assignment> Assignments { get; set; }
-        ICollection<Message> Messages { get; set; }
+        public int GroupId { get; set; }
+        public Group Group { get; set; }
+
+        public int SubjectId { get; set; }
+        public Subject Subject { get; set; }
     }
 }
