@@ -15,5 +15,6 @@ namespace UniversityStudyPlatform.Models
         public string SubjectName { get; set; }
 
         public ICollection<StudentPerfomance> StudentPerfomances { get; set;}
+        public ICollection<Course> Courses { get; set;}
     }
 }
