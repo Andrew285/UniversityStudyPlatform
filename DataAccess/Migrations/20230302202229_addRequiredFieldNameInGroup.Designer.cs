@@ -12,8 +12,8 @@ using UniversityStudyPlatform.DataAccess.Data;
 namespace UniversityStudyPlatform.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230228093723_addAssignmentAndMessageToDb")]
-    partial class addAssignmentAndMessageToDb
+    [Migration("20230302202229_addRequiredFieldNameInGroup")]
+    partial class addRequiredFieldNameInGroup
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,9 +92,14 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SubjectId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Courses");
                 });
@@ -159,6 +164,38 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("UniversityStudyPlatform.Models.Shedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Faculty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Shedule");
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Student", b =>
@@ -234,6 +271,35 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.ToTable("Subjects");
                 });
 
+            modelBuilder.Entity("UniversityStudyPlatform.Models.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teacher");
+                });
+
             modelBuilder.Entity("UniversityStudyPlatform.Models.AccountBook", b =>
                 {
                     b.HasOne("UniversityStudyPlatform.Models.Group", "Group")
@@ -272,7 +338,15 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("UniversityStudyPlatform.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Subject");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.CourseGroup", b =>
@@ -305,6 +379,33 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("UniversityStudyPlatform.Models.Shedule", b =>
+                {
+                    b.HasOne("UniversityStudyPlatform.Models.Group", "Group")
+                        .WithMany("Shedule")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UniversityStudyPlatform.Models.Subject", "Subject")
+                        .WithMany("Shedule")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("UniversityStudyPlatform.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Subject");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("UniversityStudyPlatform.Models.StudentPerfomance", b =>
                 {
                     b.HasOne("UniversityStudyPlatform.Models.AccountBook", "AccountBook")
@@ -334,6 +435,8 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.Navigation("AccountBooks");
 
                     b.Navigation("CourseGroups");
+
+                    b.Navigation("Shedule");
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Student", b =>
@@ -345,6 +448,8 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
             modelBuilder.Entity("UniversityStudyPlatform.Models.Subject", b =>
                 {
                     b.Navigation("Courses");
+
+                    b.Navigation("Shedule");
 
                     b.Navigation("StudentPerfomances");
                 });
