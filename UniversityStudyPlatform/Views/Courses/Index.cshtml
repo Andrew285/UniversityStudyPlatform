@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Course>
+
+<div class="wrapper">
+    @foreach(var course in Model)
+    {
+        <a class="course_anchor">
+            <div class="course_block">
+                <div class="block_inner_content">
+                    <div class="course_img">
+                        <img src="../images/university.jfif" />
+                    </div>
+                    <div class="course_name">
+                        <p>@course.Name</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    }
+</div>
