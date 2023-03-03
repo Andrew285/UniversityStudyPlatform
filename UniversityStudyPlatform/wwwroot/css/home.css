@@ -1,0 +1,44 @@
+﻿.main_div{
+    width: 100%;
+    height: 500px;
+    border: 2px solid purple;
+}
+
+
+/* ----- PHOTO DIV ----- */
+
+.photo_div{
+    width: 100%;
+    height: 50%;
+    border: 2px solid red;
+    text-align: center;
+}
+
+.photo_div img{
+    width: auto;
+    height: 100%;
+}
+
+
+/* ----- BUTTONS DIV ----- */
+
+.buttons_div {
+    width: 100%;
+    height: 50%;
+    border: 2px solid green;
+    text-align: center;
+}
+
+.buttons_columns{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    height: 100%;
+}
+
+.column_div{
+    width: 50%;
+    height: 100%;
+    border: 2px solid yellow;
+    float: left;
+}
