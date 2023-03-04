@@ -6,14 +6,18 @@
     <div class="buttons_div">
         <div class="buttons_columns">
             <div class="column_div">
-                <a><div>Розклад</div></a>
-                <a><div>Завдання</div></a>
-                <a><div>Навчальний план</div></a>
+                <div class="button_div">
+                    <a><div class="page_button">Розклад</div></a>
+                    <a><div class="page_button">Завдання</div></a>
+                    <a asp-controller="Curriculum" asp-action="Index"><div class="page_button">Навчальний план</div></a>
+                </div>
             </div>
             <div class="column_div">
-                <a><div>Курси</div></a>
-                <a><div>Успішність</div></a>
-                <a><div>Новини</div></a>
+                <div class="button_div">
+                    <a asp-controller="Courses" asp-action="Index"><div class="page_button">Курси</div></a>
+                    <a><div class="page_button">Успішність</div></a>
+                    <a><div class="page_button">Новини</div></a>
+                </div>
             </div>
         </div>
     </div>
