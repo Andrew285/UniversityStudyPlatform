@@ -41,4 +41,27 @@
     height: 100%;
     border: 2px solid yellow;
     float: left;
+    vertical-align: middle;
+}
+
+.column_div .button_div {
+    width: 40%;
+    height: 70%;
+    margin: auto;
+    border: 2px solid red;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.page_button{
+
+    width: 100%;
+    height: 30%;
+    border: 2px solid blue;
+    margin: auto;
+}
+
+.page_button:hover{
+    background-color: grey;
 }
