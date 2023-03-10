@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace UniversityStudyPlatform.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addEntitiesToDb : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,9 +16,10 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "Groups",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    StudentAmount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,10 +30,10 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Surname = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,9 +44,9 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "Subjects",
                 columns: table => new
                 {
-                    SubjectId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SubjectName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    SubjectId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SubjectName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,12 +57,12 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "Teacher",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Surname = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,10 +73,10 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "AccountBooks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    GroupId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    StudentId = table.Column<int>(type: "integer", nullable: false),
+                    GroupId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,11 +99,11 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "Courses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false),
-                    TeacherId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    SubjectId = table.Column<int>(type: "integer", nullable: false),
+                    TeacherId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,12 +126,12 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "Shedule",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Faculty = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TeacherId = table.Column<int>(type: "int", nullable: false),
-                    GroupId = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Faculty = table.Column<string>(type: "text", nullable: false),
+                    TeacherId = table.Column<int>(type: "integer", nullable: false),
+                    GroupId = table.Column<int>(type: "integer", nullable: false),
+                    SubjectId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -158,14 +160,14 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "StudentPerfomances",
                 columns: table => new
                 {
-                    StudentPerfomanceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountBookId = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    StudentPerfomanceId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AccountBookId = table.Column<int>(type: "integer", nullable: false),
+                    SubjectId = table.Column<int>(type: "integer", nullable: false),
                     CurrentPoint = table.Column<float>(type: "real", nullable: false),
                     ExamPoint = table.Column<float>(type: "real", nullable: false),
                     TotalPoint = table.Column<float>(type: "real", nullable: false),
-                    SemesterNumber = table.Column<int>(type: "int", nullable: false)
+                    SemesterNumber = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -188,12 +190,12 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "Assignments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CourseId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -210,10 +212,10 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "CourseGroups",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CourseId = table.Column<int>(type: "int", nullable: false),
-                    GroupId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CourseId = table.Column<int>(type: "integer", nullable: false),
+                    GroupId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -236,10 +238,10 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "Messages",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Body = table.Column<string>(type: "text", nullable: false),
+                    CourseId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
