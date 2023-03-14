@@ -2,7 +2,7 @@
 
 namespace UniversityStudyPlatform.Controllers
 {
-    public class Curriculum : Controller
+    public class CurriculumController : Controller
     {
         public IActionResult Index()
         {

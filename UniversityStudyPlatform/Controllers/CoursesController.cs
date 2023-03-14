@@ -5,11 +5,11 @@ using UniversityStudyPlatform.Models;
 
 namespace UniversityStudyPlatform.Controllers
 {
-    public class Courses : Controller
+    public class CoursesController : Controller
     {
         private IRepository<Course> courseRepository;
 
-        public Courses(IRepository<Course> _courseRepository)
+        public CoursesController(IRepository<Course> _courseRepository)
         {
             courseRepository = _courseRepository;
         }
