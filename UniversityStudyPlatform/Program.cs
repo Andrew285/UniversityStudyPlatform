@@ -2,11 +2,20 @@ using Microsoft.EntityFrameworkCore;
 using UniversityStudyPlatform.DataAccess.Data;
 using UniversityStudyPlatform.DataAccess.Repository;
 using UniversityStudyPlatform.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(option =>
+    {
+        option.LoginPath = "/Access/Login";
+        option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+    });
+
 //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
 //    builder.Configuration.GetConnectionString("DefaultConnection")
 //    ));
@@ -15,6 +24,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql
     ));
 
 builder.Services.AddScoped<IRepository<Course>, Repository<Course>>();
+builder.Services.AddScoped<IRepository<Shedule>, Repository<Shedule>>();
+builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();
+builder.Services.AddScoped<IRepository<AccountBook>, Repository<AccountBook>>();
 
 var app = builder.Build();
 
@@ -32,10 +44,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Access}/{action=Login}/{id?}");
 
 app.Run();
