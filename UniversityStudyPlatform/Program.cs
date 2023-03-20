@@ -24,6 +24,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql
     ));
 
 builder.Services.AddScoped<IRepository<Course>, Repository<Course>>();
+builder.Services.AddScoped<IRepository<Shedule>, Repository<Shedule>>();
+builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();
+builder.Services.AddScoped<IRepository<AccountBook>, Repository<AccountBook>>();
 
 var app = builder.Build();
 

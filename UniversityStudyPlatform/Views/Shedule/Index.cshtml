@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Shedule>
+
+<div class="wrapper">
+    @foreach (var shedule in Model)
+    {
+        <a class="shedule_anchor">
+            <div class="shedule_block">
+                <div class="block_inner_content">
+                    <div class="shedule_name">
+                        <p>@shedule.Faculty</p>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>@shedule.Id</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </a>
+    }
+</div>
