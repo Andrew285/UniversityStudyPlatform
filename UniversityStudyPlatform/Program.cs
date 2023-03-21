@@ -27,6 +27,7 @@ builder.Services.AddScoped<IRepository<Course>, Repository<Course>>();
 builder.Services.AddScoped<IRepository<Shedule>, Repository<Shedule>>();
 builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();
 builder.Services.AddScoped<IRepository<AccountBook>, Repository<AccountBook>>();
+builder.Services.AddScoped<IRepository<StudentPerfomance>, Repository<StudentPerfomance>>();
 
 var app = builder.Build();
 

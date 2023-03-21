@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<StudentPerfomance>
+
 <div>
 
     <h1>A Fancy Table</h1>
@@ -9,12 +10,16 @@
             <th>Contact</th>
             <th>Country</th>
         </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-        </tr>
-        <tr>
+        @foreach (var сurriculum in Model)
+        {
+            <tr>
+                <td>@сurriculum.SubjectId</td>
+                <td>@сurriculum.CurrentPoint</td>
+                <td>@сurriculum.ExamPoint</td>
+                <td>@сurriculum.SemesterNumber</td>
+            </tr>      
+        }
+@*        <tr>
             <td>Berglunds snabbköp</td>
             <td>Christina Berglund</td>
             <td>Sweden</td>
@@ -58,7 +63,7 @@
             <td>Paris spécialités</td>
             <td>Marie Bertrand</td>
             <td>France</td>
-        </tr>
+        </tr>*@
     </table>
 
 </div>
