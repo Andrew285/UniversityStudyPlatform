@@ -5,7 +5,7 @@
 namespace UniversityStudyPlatform.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addShedule : Migration
+    public partial class changeLoginColumnPosTeacher : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -14,10 +14,11 @@ namespace UniversityStudyPlatform.Models
         public string Name { get; set; }
         [Required]
         public string Surname { get; set; }
-        [Required]
-        public string Email { get; set; }
+
         [Required]
         public string Role { get; set; }
+
+        public LoginData LoginData { get; set; }
 
         ICollection<Shedule> Shedule { get; set; }
         ICollection<Course> Course { get; set; }
