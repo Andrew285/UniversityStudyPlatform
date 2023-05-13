@@ -20,5 +20,6 @@ namespace UniversityStudyPlatform.DataAccess.Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<LoginData> LoginData { get; set; }
     }
 }

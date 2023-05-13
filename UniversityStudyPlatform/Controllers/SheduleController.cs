@@ -10,15 +10,11 @@ namespace UniversityStudyPlatform.Controllers
 {
     public class SheduleController : Controller
     {
-        private IRepository<Shedule> sheduleRepository;
-        private IRepository<Student> studentRepository;
-        private IRepository<AccountBook> accountBookRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public SheduleController(IRepository<Shedule> _sheduleRepository, IRepository<Student> studentRepository, IRepository<AccountBook> accountBookRepository)
+        public SheduleController(IUnitOfWork _unitOfWork)
         {
-            sheduleRepository = _sheduleRepository;
-            this.studentRepository = studentRepository;
-            this.accountBookRepository = accountBookRepository;
+            unitOfWork = _unitOfWork;
         }
 
         //GET: SheduleController
@@ -40,12 +36,16 @@ namespace UniversityStudyPlatform.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            Student studentCard = studentRepository.GetFirstOrDefault(
-                u => u.Email == claim.Value);
-            AccountBook AccountBookCard = accountBookRepository.GetFirstOrDefault(
+            LoginData userLoginData = unitOfWork.loginDataRepository.GetFirstOrDefault(u =>
+                        u.Email == claim.Value);
+
+            Student studentCard = unitOfWork.studentRepository.GetFirstOrDefault(u =>
+                        u.LoginData.Id == userLoginData.Id);
+
+            AccountBook AccountBookCard = unitOfWork.accountBookRepository.GetFirstOrDefault(
                 u => u.StudentId == studentCard.Id);
             int groupId = AccountBookCard.GroupId;
-            IEnumerable<Shedule> sheduleList = sheduleRepository.GetAll(
+            IEnumerable<Shedule> sheduleList = unitOfWork.sheduleRepository.GetAll(
                 u => u.GroupId == groupId);
 
             return View(sheduleList);

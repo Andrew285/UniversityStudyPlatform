@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using UniversityStudyPlatform.DataAccess.Data;
 using UniversityStudyPlatform.DataAccess.Repository;
 using UniversityStudyPlatform.Models;
@@ -7,16 +8,25 @@ namespace UniversityStudyPlatform.Controllers
 {
     public class CoursesController : Controller
     {
-        private IRepository<Course> courseRepository;
+        private IUnitOfWork unitOfWork;
 
-        public CoursesController(IRepository<Course> _courseRepository)
+        public CoursesController(IUnitOfWork _unitOfWork)
         {
-            courseRepository = _courseRepository;
+            unitOfWork = _unitOfWork;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Course> coursesList = courseRepository.GetAll();
+            //check if user is logged in
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            AccountBook accountBook = unitOfWork.accountBookRepository.GetFirstOrDefault(u => u.Student.LoginData.Email == claim.Value);
+            Group group = unitOfWork.groupRepository.GetFirstOrDefault(u => u.Id == accountBook.GroupId);
+            IEnumerable<CourseGroup> courseGroups = unitOfWork.courseGroupRepository.GetAll(u => u.GroupId == group.Id);
+            List<Course> coursesList = new List<Course>();
+            coursesList = courseGroups.Select(x => unitOfWork.courseRepository.GetFirstOrDefault(u => u.Id == x.CourseId)).ToList();
+
             return View(coursesList);
         }
     }
