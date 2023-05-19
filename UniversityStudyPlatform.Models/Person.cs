@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 
 namespace UniversityStudyPlatform.Models
 {
-    public class Teacher
+    public class Person
     {
         public int Id { get; set; }
 
-        public int PersonId { get; set; }
-        public Person Person { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Surname { get; set; }
+
+        public LoginData LoginData { get; set; }
     }
 }

@@ -1,16 +1,16 @@
-﻿@model IEnumerable<Course>
+﻿@model IEnumerable<CourseGroup>
 
 <div class="wrapper">
-    @foreach(var course in Model)
+    @foreach(var courseGroup in Model)
     {
-        <a class="course_anchor">
+        <a class="course_anchor" asp-controller="Course" asp-action="Index" asp-route-courseId="@courseGroup.Id">
             <div class="course_block">
                 <div class="block_inner_content">
                     <div class="course_img">
                         <img src="../images/university.jfif" />
                     </div>
                     <div class="course_name">
-                        <p>@course.Name</p>
+                        <p>@courseGroup.Title</p>
                     </div>
                 </div>
             </div>

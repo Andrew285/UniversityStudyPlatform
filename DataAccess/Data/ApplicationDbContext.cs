@@ -10,7 +10,9 @@ namespace UniversityStudyPlatform.DataAccess.Data
 
         }
 
+        public DbSet<Person> Persons { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Shedule> Shedule { get; set; }
         public DbSet<AccountBook> AccountBooks { get; set; }
         public DbSet<StudentPerfomance> StudentPerfomances { get; set; }
