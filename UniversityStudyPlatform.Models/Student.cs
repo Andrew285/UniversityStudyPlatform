@@ -11,12 +11,7 @@ namespace UniversityStudyPlatform.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Surname { get; set; }
-
-        public LoginData LoginData { get; set; }
-        public AccountBook AccountBook { get; set; }
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace UniversityStudyPlatform.DataAccess.Repository
         public IRepository<Student> studentRepository { get; set; }
         public IRepository<StudentIndividualTask> studentIndividualTaskRepository { get; set; }
         public IRepository<StudentPerfomance> studentPerformanceRepository { get; set; }
+        public IRepository<Person> personRepository { get; set; }
         public IRepository<Subject> subjectRepository { get; set; }
         public IRepository<Teacher> teacherRepository { get; set; }
         public IRepository<VMLogin> vmLoginRepository { get; set; }

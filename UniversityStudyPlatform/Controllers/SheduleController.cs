@@ -39,8 +39,10 @@ namespace UniversityStudyPlatform.Controllers
             LoginData userLoginData = unitOfWork.loginDataRepository.GetFirstOrDefault(u =>
                         u.Email == claim.Value);
 
+            Person person = unitOfWork.personRepository.GetFirstOrDefault(u => u.LoginData.Id == userLoginData.Id);
+
             Student studentCard = unitOfWork.studentRepository.GetFirstOrDefault(u =>
-                        u.LoginData.Id == userLoginData.Id);
+                        u.PersonId == person.Id);
 
             AccountBook AccountBookCard = unitOfWork.accountBookRepository.GetFirstOrDefault(
                 u => u.StudentId == studentCard.Id);

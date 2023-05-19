@@ -41,25 +41,19 @@ namespace UniversityStudyPlatform.Controllers
                         u.Email == modelLogin.Email &&
                         u.Password == modelLogin.Password);
 
-            Student student = unitOfWork.studentRepository.GetFirstOrDefault(u =>
+            Person person = unitOfWork.personRepository.GetFirstOrDefault(u =>
                         u.LoginData.Id == userLoginData.Id);
 
             Teacher teacher = unitOfWork.teacherRepository.GetFirstOrDefault(u =>
-                        u.LoginData.Id == userLoginData.Id);
+                        u.PersonId == person.Id);
+
+            Student student = unitOfWork.studentRepository.GetFirstOrDefault(u =>
+                        u.PersonId == person.Id);
 
             if (student != null || teacher != null)
             {
                 string userName = "";
-
-                if(student != null)
-                {
-                    userName = student.Name;
-                }
-                else if(teacher != null)
-                {
-                    userName = teacher.Name;
-                }
-
+                userName = person.Name;
                 ViewBag.UserName = userName;
 
                 List<Claim> claims = new List<Claim>()

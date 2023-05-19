@@ -21,13 +21,15 @@ namespace UniversityStudyPlatform.Controllers
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            AccountBook accountBook = unitOfWork.accountBookRepository.GetFirstOrDefault(u => u.Student.LoginData.Email == claim.Value);
+            Person person = unitOfWork.personRepository.GetFirstOrDefault(u => u.LoginData.Email == claim.Value);
+            Student student = unitOfWork.studentRepository.GetFirstOrDefault(u => u.PersonId == person.Id);
+            AccountBook accountBook = unitOfWork.accountBookRepository.GetFirstOrDefault(u => u.StudentId == student.Id);
             Group group = unitOfWork.groupRepository.GetFirstOrDefault(u => u.Id == accountBook.GroupId);
             IEnumerable<CourseGroup> courseGroups = unitOfWork.courseGroupRepository.GetAll(u => u.GroupId == group.Id);
-            List<Course> coursesList = new List<Course>();
-            coursesList = courseGroups.Select(x => unitOfWork.courseRepository.GetFirstOrDefault(u => u.Id == x.CourseId)).ToList();
+            //List<Course> coursesList = new List<Course>();
+            //coursesList = courseGroups.Select(x => unitOfWork.courseRepository.GetFirstOrDefault(u => u.Id == x.CourseId)).ToList();
 
-            return View(coursesList);
+            return View(courseGroups);
         }
     }
 }

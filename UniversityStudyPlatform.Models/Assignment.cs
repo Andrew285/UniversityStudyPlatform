@@ -13,8 +13,11 @@ namespace UniversityStudyPlatform.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        public int CourseId { get; set; }
-        public Course Course { get; set;}
+        public int CourseGroupId { get; set; }
+        public CourseGroup CourseGroup { get; set; }
+
+        public int TeacherId { get; set; }
+        public Teacher Teacher { get; set; }
 
         ICollection<StudentIndividualTask> StudentIndividualTask { get; set; }
     }
