@@ -23,6 +23,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+//builder.Services.AddScoped<IRepository<Course>, Repository<Course>>();
+//builder.Services.AddScoped<IRepository<Shedule>, Repository<Shedule>>();
+//builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();
+//builder.Services.AddScoped<IRepository<AccountBook>, Repository<AccountBook>>();
+//builder.Services.AddScoped<IRepository<Teacher>, Repository<Teacher>>();
+//builder.Services.AddScoped<IRepository<LoginData>, Repository<LoginData>>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IRepository<Course>, Repository<Course>>();
 builder.Services.AddScoped<IRepository<Shedule>, Repository<Shedule>>();
 builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();

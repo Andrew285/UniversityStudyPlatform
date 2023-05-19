@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace UniversityStudyPlatform.Models
 {
-    public class Teacher
+    public class LoginData
     {
+        [Key]
         public int Id { get; set; }
-
-        public int PersonId { get; set; }
-        public Person Person { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public bool KeepLoggedIn { get; set; }
     }
 }

@@ -40,8 +40,7 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.HasIndex("StudentId")
-                        .IsUnique();
+                    b.HasIndex("StudentId");
 
                     b.ToTable("AccountBooks");
                 });
@@ -54,7 +53,7 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CourseId")
+                    b.Property<int>("CourseGroupId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
@@ -67,9 +66,14 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("CourseGroupId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Assignments");
                 });
@@ -115,6 +119,14 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.Property<int>("GroupId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("PhotoUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
@@ -144,6 +156,30 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.ToTable("Groups");
                 });
 
+            modelBuilder.Entity("UniversityStudyPlatform.Models.LoginData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("KeepLoggedIn")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LoginData");
+                });
+
             modelBuilder.Entity("UniversityStudyPlatform.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -156,14 +192,45 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CourseId")
+                    b.Property<int>("CourseGroupId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PersonId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("CourseGroupId");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("UniversityStudyPlatform.Models.Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("LoginDataId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LoginDataId");
+
+                    b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Shedule", b =>
@@ -206,19 +273,12 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Students");
                 });
@@ -283,25 +343,14 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teacher");
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.AccountBook", b =>
@@ -313,8 +362,8 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("UniversityStudyPlatform.Models.Student", "Student")
-                        .WithOne("AccountBook")
-                        .HasForeignKey("UniversityStudyPlatform.Models.AccountBook", "StudentId")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -325,13 +374,21 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Assignment", b =>
                 {
-                    b.HasOne("UniversityStudyPlatform.Models.Course", "Course")
+                    b.HasOne("UniversityStudyPlatform.Models.CourseGroup", "CourseGroup")
                         .WithMany()
-                        .HasForeignKey("CourseId")
+                        .HasForeignKey("CourseGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Course");
+                    b.HasOne("UniversityStudyPlatform.Models.Teacher", "Teacher")
+                        .WithMany()
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourseGroup");
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Course", b =>
@@ -374,13 +431,32 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Message", b =>
                 {
-                    b.HasOne("UniversityStudyPlatform.Models.Course", "Course")
+                    b.HasOne("UniversityStudyPlatform.Models.CourseGroup", "CourseGroup")
                         .WithMany()
-                        .HasForeignKey("CourseId")
+                        .HasForeignKey("CourseGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Course");
+                    b.HasOne("UniversityStudyPlatform.Models.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourseGroup");
+
+                    b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("UniversityStudyPlatform.Models.Person", b =>
+                {
+                    b.HasOne("UniversityStudyPlatform.Models.LoginData", "LoginData")
+                        .WithMany()
+                        .HasForeignKey("LoginDataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LoginData");
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Shedule", b =>
@@ -410,6 +486,17 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("UniversityStudyPlatform.Models.Student", b =>
+                {
+                    b.HasOne("UniversityStudyPlatform.Models.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+                });
+
             modelBuilder.Entity("UniversityStudyPlatform.Models.StudentPerfomance", b =>
                 {
                     b.HasOne("UniversityStudyPlatform.Models.AccountBook", "AccountBook")
@@ -429,6 +516,17 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.Navigation("Subject");
                 });
 
+            modelBuilder.Entity("UniversityStudyPlatform.Models.Teacher", b =>
+                {
+                    b.HasOne("UniversityStudyPlatform.Models.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+                });
+
             modelBuilder.Entity("UniversityStudyPlatform.Models.AccountBook", b =>
                 {
                     b.Navigation("StudentPerfomances");
@@ -441,12 +539,6 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.Navigation("CourseGroups");
 
                     b.Navigation("Shedule");
-                });
-
-            modelBuilder.Entity("UniversityStudyPlatform.Models.Student", b =>
-                {
-                    b.Navigation("AccountBook")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Subject", b =>

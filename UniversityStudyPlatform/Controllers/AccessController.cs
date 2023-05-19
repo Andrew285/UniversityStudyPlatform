@@ -3,11 +3,19 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using UniversityStudyPlatform.Models;
+using UniversityStudyPlatform.DataAccess.Repository;
 
 namespace UniversityStudyPlatform.Controllers
 {
     public class AccessController : Controller
     {
+        private readonly IUnitOfWork unitOfWork;
+
+        public AccessController(IUnitOfWork _unitOfWork)
+        {
+            unitOfWork = _unitOfWork;
+        }
+
         public IActionResult Login()
         {
             //if user is already logged in
@@ -24,9 +32,30 @@ namespace UniversityStudyPlatform.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(VMLogin modelLogin)
         {
-            if(modelLogin.Email == "user@example.com" &&
-                modelLogin.Password == "123")
+
+            //find student in database
+            //var student = studentRepository.GetFirstOrDefault(u => u.Email == modelLogin.Email
+            //&& u.Password == modelLogin.Password);
+
+            LoginData userLoginData = unitOfWork.loginDataRepository.GetFirstOrDefault(u => 
+                        u.Email == modelLogin.Email &&
+                        u.Password == modelLogin.Password);
+
+            Person person = unitOfWork.personRepository.GetFirstOrDefault(u =>
+                        u.LoginData.Id == userLoginData.Id);
+
+            Teacher teacher = unitOfWork.teacherRepository.GetFirstOrDefault(u =>
+                        u.PersonId == person.Id);
+
+            Student student = unitOfWork.studentRepository.GetFirstOrDefault(u =>
+                        u.PersonId == person.Id);
+
+            if (student != null || teacher != null)
             {
+                string userName = "";
+                userName = person.Name;
+                ViewBag.UserName = userName;
+
                 List<Claim> claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.NameIdentifier, modelLogin.Email),
