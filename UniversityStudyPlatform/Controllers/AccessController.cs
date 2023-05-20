@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using UniversityStudyPlatform.Models;
-using UniversityStudyPlatform.DataAccess.Repository;
+using UniversityStudyPlatform.DataAccess.UnitOfWork;
 
 namespace UniversityStudyPlatform.Controllers
 {

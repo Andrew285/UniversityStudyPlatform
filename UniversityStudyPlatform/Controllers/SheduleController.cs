@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.Types;
 using System.Security.Claims;
-using UniversityStudyPlatform.DataAccess.Repository;
+using UniversityStudyPlatform.DataAccess.UnitOfWork;
 using UniversityStudyPlatform.Models;
 
 namespace UniversityStudyPlatform.Controllers

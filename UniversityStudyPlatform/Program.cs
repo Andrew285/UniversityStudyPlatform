@@ -3,6 +3,7 @@ using UniversityStudyPlatform.DataAccess.Data;
 using UniversityStudyPlatform.DataAccess.Repository;
 using UniversityStudyPlatform.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using UniversityStudyPlatform.DataAccess.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
