@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using UniversityStudyPlatform.DataAccess.Data;
 using UniversityStudyPlatform.Models;
 
-namespace UniversityStudyPlatform.DataAccess.Repository
+namespace UniversityStudyPlatform.DataAccess.UnitOfWork.Repository
 {
-    public class SheduleRepository: Repository<Shedule>
+    public class SheduleRepository : Repository<Shedule>
     {
         private ApplicationDbContext db;
 
-        public SheduleRepository(ApplicationDbContext _db): base(_db)
+        public SheduleRepository(ApplicationDbContext _db) : base(_db)
         {
             db = _db;
         }

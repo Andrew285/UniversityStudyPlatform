@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using UniversityStudyPlatform.DataAccess.Data;
-using UniversityStudyPlatform.DataAccess.Repository;
+using UniversityStudyPlatform.DataAccess.UnitOfWork;
 using UniversityStudyPlatform.Models;
 
 namespace UniversityStudyPlatform.Controllers

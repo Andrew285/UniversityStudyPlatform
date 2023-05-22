@@ -6,12 +6,13 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using UniversityStudyPlatform.DataAccess.Data;
+using UniversityStudyPlatform.DataAccess.Repository.IRepository;
 
-namespace UniversityStudyPlatform.DataAccess.Repository
+namespace UniversityStudyPlatform.DataAccess.UnitOfWork.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private ApplicationDbContext db;
+        public ApplicationDbContext db;
         internal DbSet<T> dbSet;
 
         public Repository(ApplicationDbContext _db)
@@ -35,7 +36,7 @@ namespace UniversityStudyPlatform.DataAccess.Repository
         public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null)
         {
             IQueryable<T> query = dbSet;
-            if(filter != null)
+            if (filter != null)
             {
                 query = query.Where(filter);
             }

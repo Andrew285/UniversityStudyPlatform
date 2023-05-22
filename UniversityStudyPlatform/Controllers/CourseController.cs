@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UniversityStudyPlatform.DataAccess.Repository;
+using UniversityStudyPlatform.DataAccess.UnitOfWork;
 using UniversityStudyPlatform.Models;
 
 namespace UniversityStudyPlatform.Controllers
