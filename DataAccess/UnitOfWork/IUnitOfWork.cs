@@ -12,7 +12,7 @@ namespace UniversityStudyPlatform.DataAccess.UnitOfWork
     {
         public IRepository<AccountBook> accountBookRepository { get; set; }
         public IAssignmentRepository assignmentRepository { get; set; }
-        public IRepository<Course> courseRepository { get; set; }
+        public ICourseRepository courseRepository { get; set; }
         public ICourseGroupRepository courseGroupRepository { get; set; }
         public IRepository<Group> groupRepository { get; set; }
         public IRepository<LoginData> loginDataRepository { get; set; }
@@ -25,6 +25,8 @@ namespace UniversityStudyPlatform.DataAccess.UnitOfWork
         public IRepository<Subject> subjectRepository { get; set; }
         public IRepository<Teacher> teacherRepository { get; set; }
         public IRepository<VMLogin> vmLoginRepository { get; set; }
+        public IRepository<CreditForm> creditFormRepository { get; set; }
+        public IRepository<Term> termRepository { get; set; }
 
         void Save();
     }

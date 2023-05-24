@@ -7,11 +7,24 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace UniversityStudyPlatform.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class AddPersonToDb : Migration
+    public partial class addCreditFormAndTermToDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CreditForms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CreditForms", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Groups",
                 columns: table => new
@@ -52,6 +65,19 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subjects", x => x.SubjectId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Terms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Terms", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,13 +171,20 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
                     SubjectId = table.Column<int>(type: "integer", nullable: false),
-                    TeacherId = table.Column<int>(type: "integer", nullable: false)
+                    TeacherId = table.Column<int>(type: "integer", nullable: false),
+                    CreditFormId = table.Column<int>(type: "integer", nullable: false),
+                    TermId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Courses_CreditForms_CreditFormId",
+                        column: x => x.CreditFormId,
+                        principalTable: "CreditForms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Courses_Subjects_SubjectId",
                         column: x => x.SubjectId,
@@ -162,6 +195,12 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                         name: "FK_Courses_Teachers_TeacherId",
                         column: x => x.TeacherId,
                         principalTable: "Teachers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Courses_Terms_TermId",
+                        column: x => x.TermId,
+                        principalTable: "Terms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -345,6 +384,11 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Courses_CreditFormId",
+                table: "Courses",
+                column: "CreditFormId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Courses_SubjectId",
                 table: "Courses",
                 column: "SubjectId");
@@ -353,6 +397,11 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "IX_Courses_TeacherId",
                 table: "Courses",
                 column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_TermId",
+                table: "Courses",
+                column: "TermId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_CourseGroupId",
@@ -436,10 +485,16 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                 name: "Students");
 
             migrationBuilder.DropTable(
+                name: "CreditForms");
+
+            migrationBuilder.DropTable(
                 name: "Subjects");
 
             migrationBuilder.DropTable(
                 name: "Teachers");
+
+            migrationBuilder.DropTable(
+                name: "Terms");
 
             migrationBuilder.DropTable(
                 name: "Persons");

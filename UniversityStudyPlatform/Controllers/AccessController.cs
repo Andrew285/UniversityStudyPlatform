@@ -50,6 +50,11 @@ namespace UniversityStudyPlatform.Controllers
             Student student = unitOfWork.studentRepository.GetFirstOrDefault(u =>
                         u.PersonId == person.Id);
 
+            if (student != null)
+            {
+                ViewBag.StudentId = student.Id;
+            }
+
             if (student != null || teacher != null)
             {
                 string userName = "";

@@ -15,7 +15,7 @@ namespace UniversityStudyPlatform.DataAccess.Repository
     {
         public IRepository<AccountBook> accountBookRepository { get; set; }
         public IAssignmentRepository assignmentRepository { get; set; }
-        public IRepository<Course> courseRepository { get; set; }
+        public ICourseRepository courseRepository { get; set; }
         public ICourseGroupRepository courseGroupRepository { get; set; }
         public IRepository<Group> groupRepository { get; set; }
         public IRepository<LoginData> loginDataRepository { get; set; }
@@ -28,6 +28,8 @@ namespace UniversityStudyPlatform.DataAccess.Repository
         public IRepository<Subject> subjectRepository { get; set; }
         public IRepository<Teacher> teacherRepository { get; set; }
         public IRepository<VMLogin> vmLoginRepository { get; set; }
+        public IRepository<CreditForm> creditFormRepository { get; set; }
+        public IRepository<Term> termRepository { get; set; }
 
         public ApplicationDbContext db { get; }
 
@@ -36,7 +38,7 @@ namespace UniversityStudyPlatform.DataAccess.Repository
             db = _db;
             accountBookRepository = new Repository<AccountBook>(_db);
             assignmentRepository = new AssignmentRepository(_db);
-            courseRepository = new Repository<Course>(_db);
+            courseRepository = new CourseRepository(_db);
             courseGroupRepository = new CourseGroupRepository(_db);
             groupRepository = new Repository<Group>(_db);
             loginDataRepository = new Repository<LoginData>(_db);
@@ -49,6 +51,8 @@ namespace UniversityStudyPlatform.DataAccess.Repository
             subjectRepository = new Repository<Subject>(_db);
             teacherRepository = new Repository<Teacher>(_db);
             vmLoginRepository = new Repository<VMLogin>(_db);
+            creditFormRepository = new Repository<CreditForm>(_db);
+            termRepository = new Repository<Term>(_db);
         }
 
         public void Save()
