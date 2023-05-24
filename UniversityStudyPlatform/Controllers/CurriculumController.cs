@@ -18,20 +18,20 @@ namespace UniversityStudyPlatform.Controllers
             this.accountBookRepository = accountBookRepository;
         }
 
-        public IActionResult Index()
-        {
-            //check if user is logged in
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        //public IActionResult Index()
+        //{
+        //    //check if user is logged in
+        //    //var claimsIdentity = (ClaimsIdentity)User.Identity;
+        //    //var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            Student studentCard = studentRepository.GetFirstOrDefault(
-                u => u.Email == claim.Value);
-            AccountBook AccountBookCard = accountBookRepository.GetFirstOrDefault(
-                u => u.StudentId == studentCard.Id);
-            IEnumerable<StudentPerfomance> studentPerfomanceList = studentPerfomanceRepository.GetAll(
-                u => u.AccountBookId == AccountBookCard.Id);
-            studentPerfomanceList.OrderBy(c => c.SemesterNumber);
-            return View(studentPerfomanceList);
-        }
+        //    //Student studentCard = studentRepository.GetFirstOrDefault(
+        //    //    u => u.Email == claim.Value);
+        //    //AccountBook AccountBookCard = accountBookRepository.GetFirstOrDefault(
+        //    //    u => u.StudentId == studentCard.Id);
+        //    //IEnumerable<StudentPerfomance> studentPerfomanceList = studentPerfomanceRepository.GetAll(
+        //    //    u => u.AccountBookId == AccountBookCard.Id);
+        //    //studentPerfomanceList.OrderBy(c => c.SemesterNumber);
+        //    return View(studentPerfomanceList);
+        //}
     }
 }

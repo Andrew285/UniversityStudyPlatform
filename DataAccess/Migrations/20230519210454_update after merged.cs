@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace UniversityStudyPlatform.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class AddPersonToDb : Migration
+    public partial class updateaftermerged : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
