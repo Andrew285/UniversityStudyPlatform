@@ -12,8 +12,8 @@ using UniversityStudyPlatform.DataAccess.Data;
 namespace UniversityStudyPlatform.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230515182756_AddPersonToDb")]
-    partial class AddPersonToDb
+    [Migration("20230522220504_addCreditFormAndTermToDb")]
+    partial class addCreditFormAndTermToDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,9 +89,8 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("CreditFormId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("SubjectId")
                         .HasColumnType("integer");
@@ -99,11 +98,18 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.Property<int>("TeacherId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("TermId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreditFormId");
 
                     b.HasIndex("SubjectId");
 
                     b.HasIndex("TeacherId");
+
+                    b.HasIndex("TermId");
 
                     b.ToTable("Courses");
                 });
@@ -137,6 +143,23 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("CourseGroups");
+                });
+
+            modelBuilder.Entity("UniversityStudyPlatform.Models.CreditForm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CreditForms");
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Group", b =>
@@ -356,6 +379,23 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                     b.ToTable("Teachers");
                 });
 
+            modelBuilder.Entity("UniversityStudyPlatform.Models.Term", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Terms");
+                });
+
             modelBuilder.Entity("UniversityStudyPlatform.Models.AccountBook", b =>
                 {
                     b.HasOne("UniversityStudyPlatform.Models.Group", "Group")
@@ -396,6 +436,12 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.Course", b =>
                 {
+                    b.HasOne("UniversityStudyPlatform.Models.CreditForm", "CreditForm")
+                        .WithMany()
+                        .HasForeignKey("CreditFormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("UniversityStudyPlatform.Models.Subject", "Subject")
                         .WithMany("Courses")
                         .HasForeignKey("SubjectId")
@@ -408,9 +454,19 @@ namespace UniversityStudyPlatform.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("UniversityStudyPlatform.Models.Term", "Term")
+                        .WithMany()
+                        .HasForeignKey("TermId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreditForm");
+
                     b.Navigation("Subject");
 
                     b.Navigation("Teacher");
+
+                    b.Navigation("Term");
                 });
 
             modelBuilder.Entity("UniversityStudyPlatform.Models.CourseGroup", b =>

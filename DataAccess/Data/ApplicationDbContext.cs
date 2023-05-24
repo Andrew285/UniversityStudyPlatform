@@ -23,5 +23,7 @@ namespace UniversityStudyPlatform.DataAccess.Data
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<LoginData> LoginData { get; set; }
+        public DbSet<CreditForm> CreditForms { get; set; }
+        public DbSet<Term> Terms { get; set; }
     }
 }

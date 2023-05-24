@@ -11,14 +11,17 @@ namespace UniversityStudyPlatform.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; }
-
         public int SubjectId { get; set; }
         public Subject Subject { get; set; }
 
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
+
+        public int CreditFormId { get; set; }
+        public CreditForm CreditForm { get; set; }
+
+        public int TermId { get; set; }
+        public Term Term { get; set; }
 
         ICollection<CourseGroup> CourseGroups { get; set; }
         ICollection<Assignment> Assignments { get; set; }
