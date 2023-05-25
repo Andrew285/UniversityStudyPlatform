@@ -17,12 +17,12 @@ namespace UniversityStudyPlatform.DataAccess.UnitOfWork
         public IRepository<Group> groupRepository { get; set; }
         public IRepository<LoginData> loginDataRepository { get; set; }
         public IRepository<Message> messageRepository { get; set; }
-        public IRepository<Shedule> sheduleRepository { get; set; }
+        public ISheduleRepository sheduleRepository { get; set; }
         public IStudentRepository studentRepository { get; set; }
         public IRepository<StudentIndividualTask> studentIndividualTaskRepository { get; set; }
         public IRepository<StudentPerfomance> studentPerformanceRepository { get; set; }
         public IRepository<Person> personRepository { get; set; }
-        public IRepository<Subject> subjectRepository { get; set; }
+        public ISubjectRepository subjectRepository { get; set; }
         public IRepository<Teacher> teacherRepository { get; set; }
         public IRepository<VMLogin> vmLoginRepository { get; set; }
         public IRepository<CreditForm> creditFormRepository { get; set; }

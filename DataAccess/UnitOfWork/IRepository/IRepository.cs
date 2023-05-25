@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UniversityStudyPlatform.DataAccess.Repository.IRepository
 {
@@ -13,6 +11,5 @@ namespace UniversityStudyPlatform.DataAccess.Repository.IRepository
         IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null);
         void Add(T entity);
         void Remove(T entity);
-
     }
 }
