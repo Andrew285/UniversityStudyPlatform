@@ -21,9 +21,9 @@ namespace UniversityStudyPlatform.DataAccess.UnitOfWork
         public IStudentRepository studentRepository { get; set; }
         public IRepository<StudentIndividualTask> studentIndividualTaskRepository { get; set; }
         public IRepository<StudentPerfomance> studentPerformanceRepository { get; set; }
-        public IRepository<Person> personRepository { get; set; }
+        public IPersonRepository personRepository { get; set; }
+        public ITeacherRepository teacherRepository { get; set; }
         public ISubjectRepository subjectRepository { get; set; }
-        public IRepository<Teacher> teacherRepository { get; set; }
         public IRepository<VMLogin> vmLoginRepository { get; set; }
         public IRepository<CreditForm> creditFormRepository { get; set; }
         public IRepository<Term> termRepository { get; set; }

@@ -24,9 +24,9 @@ namespace UniversityStudyPlatform.DataAccess.Repository
         public IStudentRepository studentRepository { get; set; }
         public IRepository<StudentIndividualTask> studentIndividualTaskRepository { get; set; }
         public IRepository<StudentPerfomance> studentPerformanceRepository { get; set; }
-        public IRepository<Person> personRepository { get; set; }
+        public IPersonRepository personRepository { get; set; }
+        public ITeacherRepository teacherRepository { get; set; }
         public ISubjectRepository subjectRepository { get; set; }
-        public IRepository<Teacher> teacherRepository { get; set; }
         public IRepository<VMLogin> vmLoginRepository { get; set; }
         public IRepository<CreditForm> creditFormRepository { get; set; }
         public IRepository<Term> termRepository { get; set; }
@@ -47,9 +47,9 @@ namespace UniversityStudyPlatform.DataAccess.Repository
             studentRepository = new StudentRepository(_db);
             studentIndividualTaskRepository = new Repository<StudentIndividualTask>(_db);
             studentPerformanceRepository = new Repository<StudentPerfomance>(_db);
-            personRepository = new Repository<Person>(_db);
+            personRepository = new PersonRepository(_db);
+            teacherRepository = new TeacherRepository(_db);
             subjectRepository = new SubjectRepository(_db);
-            teacherRepository = new Repository<Teacher>(_db);
             vmLoginRepository = new Repository<VMLogin>(_db);
             creditFormRepository = new Repository<CreditForm>(_db);
             termRepository = new Repository<Term>(_db);

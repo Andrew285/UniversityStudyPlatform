@@ -2,7 +2,7 @@
 
 <div>
 
-    <h1>Завдання</h1>
+    <h1>Навчальний план</h1>
 
     <table id="customers">
         <tr>
@@ -15,9 +15,9 @@
         @for (int i = 0; i < ViewBag.Courses.Count; i++)
         {
             <tr>
-                <td>@ViewBag.Subjects[i].Title</td>
-                <td>@ViewBag.Teachers[i].Name</td>
-                <td>@ViewBag.CreaditForms[i].Title</td>
+                <td>@ViewBag.Subjects[i].SubjectName</td>
+                <td>@ViewBag.Teachers[i]</td>
+                <td>@ViewBag.CreditForms[i].Title</td>
                 <td>@ViewBag.Terms[i].Name</td>
             </tr>
         }

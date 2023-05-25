@@ -2,6 +2,7 @@
 @{
     Layout = null;
 }
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 
 <!DOCTYPE html>
 
@@ -11,7 +12,39 @@
     <title>Login</title>
 </head>
 <body>
-    <form asp-controller="Access" asp-action="Login" method="post">
+		<div class="login-wrap">
+			<div class="login-html">
+				<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+				<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+				<div class="login-form">
+					<form class="sign-in-htm" asp-controller="Access" asp-action="Login" method="post">
+						<div class="group">
+							<label for="user" class="label">Email</label>
+							<input id="user" type="text" class="input" asp-for="Email">
+						</div>
+						<div class="group">
+							<label for="pass" class="label">Пароль</label>
+							<input id="pass" type="password" class="input" data-type="password" asp-for="Password">
+						</div>
+						<div class="group">
+							<input id="check" type="checkbox" class="check" asp-for="KeepLoggedIn" checked>
+							<label for="check"><span class="icon"></span> Запам'ятати мене? </label>
+						</div>
+						<div class="group">
+							<input type="submit" class="button" value="Увійти">
+						</div>
+						<div class="hr"></div>
+						<div class="foot-lnk">
+							<a href="#forgot">Forgot Password?</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	
+
+    @*<form asp-controller="Access" asp-action="Login" method="post">
         <h1>Login</h1>
         <input type="email" placeholder="Email" asp-for="Email"/>
         <input type="password" placeholder="Password" asp-for="Password"/>
@@ -28,6 +61,11 @@
             <br />
             <label>@ViewData["ValidateMessage"]</label>
         }
-    </form>
+    </form>*@
 </body>
 </html>
+
+
+
+
+
