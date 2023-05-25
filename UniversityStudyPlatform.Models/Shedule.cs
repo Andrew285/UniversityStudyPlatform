@@ -12,6 +12,10 @@ namespace UniversityStudyPlatform.Models
         public int Id { get; set; }
         [Required]
         public string Faculty { get; set; }
+        [Required]
+        public Day Day { get; set; }
+        [Required]
+        public int NumberPara { get; set; }
 
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }

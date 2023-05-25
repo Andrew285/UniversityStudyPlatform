@@ -32,24 +32,26 @@ namespace UniversityStudyPlatform.Controllers
 
         public IActionResult Index()
         {
-            //check if user is logged in
+            //AccountBook AccountBookCard = unitOfWork.accountBookRepository.GetFirstOrDefault(
+            //    u => u.StudentId == studentCard.Id);
+            //int groupId = AccountBookCard.GroupId;
+            //IEnumerable<Shedule> sheduleList = unitOfWork.sheduleRepository.GetAll(
+            //    u => u.GroupId == groupId);
+
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            Person person = unitOfWork.personRepository.GetFirstOrDefault(u => u.LoginData.Email == claim.Value);
+            Student student = unitOfWork.studentRepository.GetStudentByPersonId(person.Id);
+            List<List<Shedule>> sheduleList = unitOfWork.sheduleRepository.GetAllShedule(student);
 
-            LoginData userLoginData = unitOfWork.loginDataRepository.GetFirstOrDefault(u =>
-                        u.Email == claim.Value);
-
-            Person person = unitOfWork.personRepository.GetFirstOrDefault(u => u.LoginData.Id == userLoginData.Id);
-
-            Student studentCard = unitOfWork.studentRepository.GetFirstOrDefault(u =>
-                        u.PersonId == person.Id);
-
-            AccountBook AccountBookCard = unitOfWork.accountBookRepository.GetFirstOrDefault(
-                u => u.StudentId == studentCard.Id);
-            int groupId = AccountBookCard.GroupId;
-            IEnumerable<Shedule> sheduleList = unitOfWork.sheduleRepository.GetAll(
-                u => u.GroupId == groupId);
-
+            //for (int i = 0; i < sheduleList.Count(); i++)
+            //{ 
+            //    for (int j = 0; j < sheduleList[i].Count(); j++)
+            //    {
+            //        sheduleList[i][j].Subject.SubjectName
+            //        resultAssignments.Add(assignments.ToList().ElementAt(j));
+            //    }
+            //}
             return View(sheduleList);
         }
 
