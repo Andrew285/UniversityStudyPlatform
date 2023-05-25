@@ -64,7 +64,7 @@ namespace UniversityStudyPlatform.Controllers
                 List<Claim> claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.NameIdentifier, modelLogin.Email),
-                    new Claim("Other Properties", "Example Role")
+                    new Claim("StudentId", student.Id.ToString())
                 };
 
                 ClaimsIdentity claimIdentity = new ClaimsIdentity(claims,
@@ -78,7 +78,6 @@ namespace UniversityStudyPlatform.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, 
                     new ClaimsPrincipal(claimIdentity), properties);
-
                 return RedirectToAction("Index", "Home");
 
             }
