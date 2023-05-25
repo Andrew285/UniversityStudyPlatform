@@ -20,13 +20,13 @@ namespace UniversityStudyPlatform.DataAccess.Repository
         public IRepository<Group> groupRepository { get; set; }
         public IRepository<LoginData> loginDataRepository { get; set; }
         public IRepository<Message> messageRepository { get; set; }
-        public IRepository<Shedule> sheduleRepository { get; set; }
+        public ISheduleRepository sheduleRepository { get; set; }
         public IStudentRepository studentRepository { get; set; }
         public IRepository<StudentIndividualTask> studentIndividualTaskRepository { get; set; }
         public IRepository<StudentPerfomance> studentPerformanceRepository { get; set; }
         public IPersonRepository personRepository { get; set; }
-        public IRepository<Subject> subjectRepository { get; set; }
         public ITeacherRepository teacherRepository { get; set; }
+        public ISubjectRepository subjectRepository { get; set; }
         public IRepository<VMLogin> vmLoginRepository { get; set; }
         public IRepository<CreditForm> creditFormRepository { get; set; }
         public IRepository<Term> termRepository { get; set; }
@@ -43,13 +43,13 @@ namespace UniversityStudyPlatform.DataAccess.Repository
             groupRepository = new Repository<Group>(_db);
             loginDataRepository = new Repository<LoginData>(_db);
             messageRepository = new Repository<Message>(_db);
-            sheduleRepository = new Repository<Shedule>(_db);
+            sheduleRepository = new SheduleRepository(_db);
             studentRepository = new StudentRepository(_db);
             studentIndividualTaskRepository = new Repository<StudentIndividualTask>(_db);
             studentPerformanceRepository = new Repository<StudentPerfomance>(_db);
             personRepository = new PersonRepository(_db);
-            subjectRepository = new Repository<Subject>(_db);
             teacherRepository = new TeacherRepository(_db);
+            subjectRepository = new SubjectRepository(_db);
             vmLoginRepository = new Repository<VMLogin>(_db);
             creditFormRepository = new Repository<CreditForm>(_db);
             termRepository = new Repository<Term>(_db);
