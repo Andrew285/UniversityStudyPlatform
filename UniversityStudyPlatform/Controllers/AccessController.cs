@@ -85,5 +85,5 @@ namespace UniversityStudyPlatform.Controllers
             ViewData["ValidateMessage"] = "user is not found";
             return View();
         }
-    }
+	}
 }
