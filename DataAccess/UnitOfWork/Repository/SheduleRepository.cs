@@ -21,25 +21,35 @@ namespace UniversityStudyPlatform.DataAccess.UnitOfWork.Repository
                          where b.StudentId == student.Id
                          select b;
 
-            //var sheduleListValue = from c in db.Shedule
-            //                  where c.GroupId == group1.FirstOrDefault().GroupId
-            //                  orderby c.Day
-            //                  select c;
 
             List<List<Shedule>> sheduleList = new List<List<Shedule>>();
-            
+
             for (int k = 0; k < Enum.GetNames(typeof(Day)).Length; k++)
             {
-                    var sheduleListOfDay = from c in db.Shedule
-                                           where c.GroupId == group1.FirstOrDefault().GroupId && c.Day ==(Day)k
-                                           orderby c.NumberPara
-                                           select c;
                 List<Shedule> dayList = new List<Shedule>();
-                for (int j = 0; j < sheduleListOfDay.Count(); j++)
+                for (int m = 1; m <= 5; m++)
                 {
-                    dayList.Add(sheduleListOfDay.ToList().ElementAt(j));
+                    var para = from c in db.Shedule
+                               where c.GroupId == group1.FirstOrDefault().GroupId && c.Day == (Day)k && c.NumberPara == m
+                               select c;
+
+                    if (para.FirstOrDefault() != null)
+                    {
+                        dayList.Add(para.FirstOrDefault());
+                    }
+                    else
+                    {
+                        dayList.Add(null);
+                    }
                 }
                 sheduleList.Add(dayList);
+
+                //{
+                //    //for (int j = 0; j < sheduleListOfDay.Count(); j++)
+                //    //{
+                //    //    dayList.Add(sheduleListOfDay.ToList().ElementAt(j));
+                //    //}
+                //}
             }
             return sheduleList;
         }

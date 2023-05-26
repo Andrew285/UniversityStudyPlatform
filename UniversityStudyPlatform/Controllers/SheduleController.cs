@@ -43,6 +43,18 @@ namespace UniversityStudyPlatform.Controllers
             Person person = unitOfWork.personRepository.GetFirstOrDefault(u => u.LoginData.Email == claim.Value);
             Student student = unitOfWork.studentRepository.GetStudentByPersonId(person.Id);
             List<List<Shedule>> sheduleList = unitOfWork.sheduleRepository.GetAllShedule(student);
+            List<List<string>> subjectsNames = new List<List<string>>();
+
+            //int SubjectsPerDayCount = 5;
+            //for(int i = 0; i < sheduleList.Count; i++)
+            //{
+            //    List<string> dayList = new List<string>();
+            //    for(int j = 0; j < SubjectsPerDayCount; j++)
+            //    {
+            //        dayList.Add(sheduleList[i][j].Faculty);
+            //    }
+            //    subjectsNames.Add(dayList);
+            //}
 
             //for (int i = 0; i < sheduleList.Count(); i++)
             //{ 
@@ -52,6 +64,7 @@ namespace UniversityStudyPlatform.Controllers
             //        resultAssignments.Add(assignments.ToList().ElementAt(j));
             //    }
             //}
+
             return View(sheduleList);
         }
 
