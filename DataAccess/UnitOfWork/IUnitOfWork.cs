@@ -20,7 +20,7 @@ namespace UniversityStudyPlatform.DataAccess.UnitOfWork
         public ISheduleRepository sheduleRepository { get; set; }
         public IStudentRepository studentRepository { get; set; }
         public IRepository<StudentIndividualTask> studentIndividualTaskRepository { get; set; }
-        public IRepository<StudentPerfomance> studentPerformanceRepository { get; set; }
+        public IStudentPerfomanceRepository studentPerformanceRepository { get; set; }
         public IPersonRepository personRepository { get; set; }
         public ITeacherRepository teacherRepository { get; set; }
         public ISubjectRepository subjectRepository { get; set; }

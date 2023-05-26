@@ -23,7 +23,7 @@ namespace UniversityStudyPlatform.DataAccess.Repository
         public ISheduleRepository sheduleRepository { get; set; }
         public IStudentRepository studentRepository { get; set; }
         public IRepository<StudentIndividualTask> studentIndividualTaskRepository { get; set; }
-        public IRepository<StudentPerfomance> studentPerformanceRepository { get; set; }
+        public IStudentPerfomanceRepository studentPerformanceRepository { get; set; }
         public IPersonRepository personRepository { get; set; }
         public ITeacherRepository teacherRepository { get; set; }
         public ISubjectRepository subjectRepository { get; set; }
@@ -46,7 +46,7 @@ namespace UniversityStudyPlatform.DataAccess.Repository
             sheduleRepository = new SheduleRepository(_db);
             studentRepository = new StudentRepository(_db);
             studentIndividualTaskRepository = new Repository<StudentIndividualTask>(_db);
-            studentPerformanceRepository = new Repository<StudentPerfomance>(_db);
+            studentPerformanceRepository = new StudentPerfomanceRepository(_db);
             personRepository = new PersonRepository(_db);
             teacherRepository = new TeacherRepository(_db);
             subjectRepository = new SubjectRepository(_db);
